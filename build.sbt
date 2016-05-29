@@ -49,11 +49,11 @@ def commonSettings = Seq(
   organization := "org.mboogerd",
   scalaVersion := "2.11.8",
   libraryDependencies ++= Seq(
-    "com.iheart"        %% "ficus"      % "1.1.3",
-    "org.scalatest"     %% "scalatest"  % "3.0.0-M7"  % "test",
-    "org.scalacheck"    %% "scalacheck" % "1.12.5"    % "test",
-    "com.storm-enroute" %% "scalameter" % "0.7"       % "test",
-    "org.typelevel"     %% "discipline" % "0.4"       % "test"
+    "com.iheart" %% "ficus" % "1.1.3",
+    "org.scalatest" %% "scalatest" % "3.0.0-M7" % "test",
+    "org.scalacheck" %% "scalacheck" % "1.12.5" % "test",
+    "com.storm-enroute" %% "scalameter" % "0.7" % "test",
+    "org.typelevel" %% "discipline" % "0.4" % "test"
   ),
   testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework"),
   parallelExecution in Benchmark := false,
@@ -63,16 +63,33 @@ def commonSettings = Seq(
 def gatlingSettings = Seq(
   libraryDependencies ++= Seq(
     "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.1.7" % "test",
-    "io.gatling"            % "gatling-test-framework"    % "2.1.7" % "test"
+    "io.gatling" % "gatling-test-framework" % "2.1.7" % "test"
   )
 )
+
+val akkaSettings = Seq {
+  val akkaVersion = "2.4.6"
+  libraryDependencies ++= Seq(
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+    "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+    "com.typesafe.akka" %% "akka-remote" % akkaVersion,
+    "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+    "com.typesafe.akka" %% "akka-contrib" % akkaVersion,
+    "com.typesafe.akka" %% "akka-http-core" % akkaVersion,
+    "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test",
+    "com.typesafe.akka" %% "akka-http-testkit" % akkaVersion % "test",
+    "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % "test"
+  )
+}
 
 lazy val module = project.in(file("module"))
   .settings(moduleName := "module")
   .settings(javaVersion("1.8"))
   .settings(commonSettings)
+  .settings(akkaSettings)
   .settings(licenceSettings)
-  .settings{
+  .settings {
     libraryDependencies ++= Seq(
     )
   }
