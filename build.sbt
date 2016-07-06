@@ -68,7 +68,7 @@ def gatlingSettings = Seq(
 )
 
 val akkaSettings = Seq {
-  val akkaVersion = "2.4.6"
+  val akkaVersion = "2.4.7"
   libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
