@@ -10,7 +10,7 @@ $ ./scala-new-project.sh -p [your project name]
 ```
 
 Additional features:
-- Add `-g` to create a github repo
 - Add `-b` to base your project of another branch of the template repository
 - Use `-l` to list alternative templating branches
 
+If you enjoy that script, also check out github-init.sh (and its github-new-repo.sh dependency) from the same scripts repository, allowing creation of a github repo from CLI with minimal setup.

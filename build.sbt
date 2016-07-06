@@ -50,10 +50,10 @@ def commonSettings = Seq(
   scalaVersion := "2.11.8",
   libraryDependencies ++= Seq(
     "com.iheart" %% "ficus" % "1.1.3",
-    "org.scalatest" %% "scalatest" % "3.0.0-M7" % "test",
-    "org.scalacheck" %% "scalacheck" % "1.12.5" % "test",
+    "org.scalatest" %% "scalatest" % "3.0.0-M16-SNAP6" % "test",
+    "org.scalacheck" %% "scalacheck" % "1.13.1" % "test",
     "com.storm-enroute" %% "scalameter" % "0.7" % "test",
-    "org.typelevel" %% "discipline" % "0.4" % "test"
+    "org.typelevel" %% "discipline" % "0.5" % "test"
   ),
   testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework"),
   parallelExecution in Benchmark := false,
