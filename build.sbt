@@ -1,5 +1,8 @@
 import de.heikoseeberger.sbtheader.HeaderKey._
 import de.heikoseeberger.sbtheader.license.Apache2_0
+//import com.typesafe.sbt.site.util.SiteHelpers._
+import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
+
 
 name := "sbt-template"
 
@@ -7,7 +10,7 @@ version := "1.0"
 
 scalaVersion := "2.11.8"
 
-organization := "org.mboogerd"
+organization := "com.github.mboogerd"
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -46,7 +49,7 @@ def licenceSettings = Seq(
 lazy val Benchmark = config("bench") extend Test
 
 def commonSettings = Seq(
-  organization := "org.mboogerd",
+  organization := "com.github.mboogerd",
   scalaVersion := "2.11.8",
   libraryDependencies ++= Seq(
     "com.iheart" %% "ficus" % "1.1.3",
@@ -68,6 +71,14 @@ def gatlingSettings = Seq(
   )
 )
 
+
+lazy val root = project.in(file("."))
+  .settings(moduleName := "sbt-template")
+  .settings(commonSettings)
+  .settings(publishSettings)
+  .aggregate(module)
+  .dependsOn(module)
+
 lazy val module = project.in(file("module"))
   .settings(moduleName := "module")
   .settings(javaVersion("1.8"))
@@ -80,3 +91,71 @@ lazy val module = project.in(file("module"))
   .enablePlugins(AutomateHeaderPlugin)
   .configs(Benchmark)
   .settings(inConfig(Benchmark)(Defaults.testSettings): _*)
+
+
+
+lazy val tagName = Def.setting{
+  s"v${if (releaseUseGlobalVersion.value) (version in ThisBuild).value else version.value}"
+}
+
+lazy val noPublishSettings = Seq(
+  publish := (),
+  publishLocal := (),
+  publishArtifact := false
+)
+
+lazy val publishSettings = Seq(
+  homepage := Some(url("https://github.com/mboogerd/sbt-template")),
+  licenses := Seq("MIT" -> url("https://opensource.org/licenses/Apache-2.0")),
+  scmInfo := Some(ScmInfo(url("https://github.com/mboogerd/sbt-template"), "scm:git:git@github.com:mboogerd/sbt-template.git")),
+  autoAPIMappings := true,
+  pomExtra := (
+    <developers>
+      <developer>
+        <id>merlijn</id>
+        <name>Merlijn Boogerd</name>
+        <url>https://github.com/mboogerd/</url>
+      </developer>
+    </developers>
+    )
+) ++ credentialSettings ++ sharedPublishSettings ++ sharedReleaseProcess
+
+lazy val sharedPublishSettings = Seq(
+  releaseCrossBuild := true,
+  releaseTagName := tagName.value,
+  releasePublishArtifactsAction := PgpKeys.publishSigned.value,
+  publishMavenStyle := true,
+  publishArtifact in Test := false,
+  pomIncludeRepository := Function.const(false),
+  publishTo := {
+    val nexus = "https://oss.sonatype.org/"
+    if (isSnapshot.value)
+      Some("Snapshots" at nexus + "content/repositories/snapshots")
+    else
+      Some("Releases" at nexus + "service/local/staging/deploy/maven2")
+  }
+)
+
+lazy val sharedReleaseProcess = Seq(
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    runTest,
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    publishArtifacts,
+    setNextVersion,
+    commitNextVersion,
+    ReleaseStep(action = Command.process("sonatypeReleaseAll", _), enableCrossBuild = true),
+    pushChanges)
+)
+
+
+lazy val credentialSettings = Seq(
+  // For Travis CI - see http://www.cakesolutions.net/teamblogs/publishing-artefacts-to-oss-sonatype-nexus-using-sbt-and-travis-ci
+  credentials ++= (for {
+    username <- Option(System.getenv().get("SONATYPE_USERNAME"))
+    password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
+  } yield Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", username, password)).toSeq
+)
