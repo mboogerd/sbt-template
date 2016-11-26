@@ -16,7 +16,7 @@ object DependenciesConf {
   def commonDeps = Seq(
     "org.scalaz" %% "scalaz-core" % "7.2.7",
     "commons-io" % "commons-io" % "2.5",
-    "com.iheart" %% "ficus" % "1.3.3",
+    "com.iheart" %% "ficus" % "1.3.4",
     "ch.qos.logback" % "logback-classic" % "1.1.7",
 
     "org.scalatest" %% "scalatest" % "3.0.1" % Test,
