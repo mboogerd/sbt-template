@@ -9,7 +9,7 @@ object GenericConf {
   )
 
   def settings(javaVersion: String = "1.8"): Seq[Setting[_]] = Seq(
-    scalacOptions ++= Seq("-feature", "-language:higherKinds", "-language:implicitConversions", "-deprecation", "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8"),
+    scalacOptions ++= Seq("-feature", "-language:higherKinds", "-language:implicitConversions", "-deprecation", "-Ydelambdafy:method"),
     javacOptions ++= Seq("-Xlint:deprecation", "-Xlint:unchecked", "-Xlink:-warn-missing-interpolator", "-g:vars"),
     cancelable in Global := true,
     parallelExecution in Test := false,

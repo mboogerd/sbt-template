@@ -1,0 +1,28 @@
+version: '2'
+
+# === ARTIFACTS ===
+
+services:
+  sbt_template:
+    image: core:latest
+    container_name: sbt-template-core
+#    environment:
+#      -
+#    volumes:
+#      -
+#    depends_on:
+#      -
+
+
+# === INFRASTRUCTURE ===
+
+#  dependency:
+#    build: docker/dependency
+#    image: local/dependency:latest
+#    container_name: dependency
+#    ports:
+#      - "1337:1337"
+#    environment:
+#      - "":""
+#    volumes:
+#      - "./docker/dependency/data:/var/lib/data"
