@@ -21,7 +21,7 @@ object DependenciesConf {
     "org.scalaz" %% "scalaz-core" % "7.2.8",
     "commons-io" % "commons-io" % "2.5",
     "com.iheart" %% "ficus" % "1.4.0",
-    "ch.qos.logback" % "logback-classic" % "1.1.8",
+    "ch.qos.logback" % "logback-classic" % "1.2.1",
 
     "org.scalatest" %% "scalatest" % "3.0.1" % Test,
     "org.scalacheck" %% "scalacheck" % "1.13.4" % Test,
