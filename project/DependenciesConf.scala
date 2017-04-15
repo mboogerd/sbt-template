@@ -21,6 +21,9 @@ object DependenciesConf {
     "org.scalaz" %% "scalaz-core" % "7.2.11",
     "commons-io" % "commons-io" % "2.5",
     "com.iheart" %% "ficus" % "1.4.0",
+    "com.github.pathikrit" %% "better-files" % "3.0.0",
+    "com.beachape" %% "enumeratum" % "1.5.10",
+    "com.github.nscala-time" %% "nscala-time" % "2.16.0",
     "ch.qos.logback" % "logback-classic" % "1.2.3",
 
     "org.scalatest" %% "scalatest" % "3.0.1" % Test,
