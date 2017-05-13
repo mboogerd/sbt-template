@@ -2,6 +2,7 @@
 ### Scala template
 *.class
 *.log
+*.sc
 
 # sbt specific
 .cache
@@ -11,13 +12,15 @@ dist/*
 target/
 lib_managed/
 src_managed/
+project/project/
 project/boot/
 project/plugins/project/
 
-# Scala-IDE specific
+# IDE specific
 .scala_dependencies
 .worksheet
+.idea
+
 ### SBT template
 # Simple Build Tool
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
-
